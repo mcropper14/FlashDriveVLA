@@ -1,47 +1,65 @@
-# DRAFT: speed-first Alpamayo warm-frame runtime
+
 
 ## Modifed from: 
 Modified from: ```https://github.com/jagoff2/OPAMAYO/tree/alpamayo-speedfirst-metadrive-20260601-openpilot-controller ``` and Claude Code
 
 Working on Ubuntu with a NVIDIA L40 (44GBVRAM)
+Alpamayo / FlashDriveVLA runtime, the local PC endpoint, and the MetaDrive side-by-side controller proof path.
 
-This is a draft operator note for the speed-first Alpamayo / FlashDriveVLA runtime, the local PC endpoint, and the MetaDrive side-by-side controller proof path. It records the current runnable path, the launch commands used for the current proof artifact, measured warm-frame timing, and which older artifacts are superseded.
+## Ubuntu / Linux Native Runbook
 
-Status: draft, speed-first, sim-only. The relevant metric for this effort is steady-state warm shifted rows after the cache path is resident. Cold first-frame latency is intentionally ignored.
+The commands above are the original Windows/WSL bring-up path. This fork also has a validated **native Ubuntu** path (tested on a single NVIDIA L40S, no WSL/Windows layer at all). It uses two wrapper scripts instead of the raw PowerShell/WSL commands:
 
-## Current answer upfront
+```bash
+# Terminal 1 -- model endpoint
+tools/reasoned_trajectory_poc/run_ubuntu_alpamayo_endpoint.sh
 
-Current valid proof artifact:
-
-```text
-openpilot/artifacts/reasoned_trajectory_poc/metadrive_openpilot_controller_norm_randommixed_820_65kpix_20260601
+# Terminal 2 -- MetaDrive episode + rendered video
+tools/reasoned_trajectory_poc/run_ubuntu_metadrive_demo.sh <run-name> [extra run_metadrive_overlay_demo.py args...]
 ```
 
-Current valid video:
+Output lands under `artifacts/reasoned_trajectory_poc/<run-name>/videos/side_by_side_<run-name>.mp4`.
 
-```text
-openpilot/artifacts/reasoned_trajectory_poc/metadrive_openpilot_controller_norm_randommixed_820_65kpix_20260601/videos/side_by_side_openpilot_controller_norm_randommixed_820_65kpix.mp4
+### One-time environment setup
+
+```bash
+# System deps + uv sync (installs MetaDrive, builds nothing GPU-specific yet)
+bash tools/ubuntu_setup.sh
+
+# Submodules this checkout doesn't carry (opendbc, panda, msgq, rednose, teleoprtc, tinygrad)
+git submodule update --init --recursive --depth 1
+
+# Native cereal/capnp extensions
+scons -j$(nproc)
+
+# CUDA 12.8 toolkit (nvcc), matching the pinned nvidia-*-cu12 wheel versions
+sudo apt-get install -y cuda-toolkit-12-8
+export PATH="/usr/local/cuda-12.8/bin:$PATH"   # persist in ~/.bashrc
+
+# alpamayo1.5/ vendored source + venv (torch/flash-attn/transformers)
+# -- see the "Rebuild The Venv From Scratch" section above; identical on Ubuntu.
+
+# Base model (gated, needs your own HF account with the license accepted)
+source alpamayo1.5/a1_5_venv/bin/activate
+hf auth login
+hf download nvidia/Alpamayo-1.5-10B
 ```
 
-Current valid control source:
+### Scene library
 
-```text
-alpamayo_openpilot_controller
-```
+Beyond the 820-frame `random_mixed` proof run, `run_ubuntu_metadrive_demo.sh <name> --novel-scene <scene> --frames 300` records a small library of distinct behaviors, all clean (0 endpoint errors):
 
-Current pushed OPAMAYO branch:
+| Scene | `--novel-scene` | What it shows |
+|---|---|---|
+| Construction | `construction` | Lateral avoidance -- most visually obvious lane-offset difference |
+| Pedestrian | `pedestrian` | Yield behavior (shorter route, completes early) |
+| Traffic light | `traffic_light` | Stop/go response to signal state |
+| Braking lead | `braking_lead` | Longitudinal following/braking response |
+| Mixed | `random_mixed` | Combined lateral + longitudinal, closest to the original proof scenario |
 
-```text
-https://github.com/jagoff2/OPAMAYO/tree/alpamayo-speedfirst-metadrive-20260601-openpilot-controller
-```
+Output for each: `artifacts/reasoned_trajectory_poc/<name>/videos/side_by_side_<name>.mp4`. The debug/reasoning text overlay and the STOCK/VLM corner tag scale with `--board-width`/`--board-height` -- bump those (default 640x400 in the wrapper script) for a bigger, more legible video.
 
-Current commit on that branch:
 
-```text
-f74e7dc66 Update Alpamayo openpilot-controller fast path
-```
-
-The older `alpamayo-speedfirst-metadrive-20260531-101751` branch exists, but the latest pushed branch is `alpamayo-speedfirst-metadrive-20260601-openpilot-controller` because the old remote branch rejected a non-fast-forward push.
 
 ## Current measured 820-frame proof result
 
@@ -135,58 +153,7 @@ Reasoning log:
 openpilot/artifacts/reasoned_trajectory_poc/metadrive_openpilot_controller_norm_randommixed_820_65kpix_20260601/vlm/alpamayo_response_reasoning.jsonl
 ```
 
-## Ubuntu / Linux Native Runbook
 
-The commands above are the original Windows/WSL bring-up path. This fork also has a validated **native Ubuntu** path (tested on a single NVIDIA L40S, no WSL/Windows layer at all). It uses two wrapper scripts instead of the raw PowerShell/WSL commands:
-
-```bash
-# Terminal 1 -- model endpoint
-tools/reasoned_trajectory_poc/run_ubuntu_alpamayo_endpoint.sh
-
-# Terminal 2 -- MetaDrive episode + rendered video
-tools/reasoned_trajectory_poc/run_ubuntu_metadrive_demo.sh <run-name> [extra run_metadrive_overlay_demo.py args...]
-```
-
-Output lands under `artifacts/reasoned_trajectory_poc/<run-name>/videos/side_by_side_<run-name>.mp4`.
-
-### One-time environment setup
-
-```bash
-# System deps + uv sync (installs MetaDrive, builds nothing GPU-specific yet)
-bash tools/ubuntu_setup.sh
-
-# Submodules this checkout doesn't carry (opendbc, panda, msgq, rednose, teleoprtc, tinygrad)
-git submodule update --init --recursive --depth 1
-
-# Native cereal/capnp extensions
-scons -j$(nproc)
-
-# CUDA 12.8 toolkit (nvcc), matching the pinned nvidia-*-cu12 wheel versions
-sudo apt-get install -y cuda-toolkit-12-8
-export PATH="/usr/local/cuda-12.8/bin:$PATH"   # persist in ~/.bashrc
-
-# alpamayo1.5/ vendored source + venv (torch/flash-attn/transformers)
-# -- see the "Rebuild The Venv From Scratch" section above; identical on Ubuntu.
-
-# Base model (gated, needs your own HF account with the license accepted)
-source alpamayo1.5/a1_5_venv/bin/activate
-hf auth login
-hf download nvidia/Alpamayo-1.5-10B
-```
-
-### Scene library
-
-Beyond the 820-frame `random_mixed` proof run, `run_ubuntu_metadrive_demo.sh <name> --novel-scene <scene> --frames 300` records a small library of distinct behaviors, all clean (0 endpoint errors):
-
-| Scene | `--novel-scene` | What it shows |
-|---|---|---|
-| Construction | `construction` | Lateral avoidance -- most visually obvious lane-offset difference |
-| Pedestrian | `pedestrian` | Yield behavior (shorter route, completes early) |
-| Traffic light | `traffic_light` | Stop/go response to signal state |
-| Braking lead | `braking_lead` | Longitudinal following/braking response |
-| Mixed | `random_mixed` | Combined lateral + longitudinal, closest to the original proof scenario |
-
-Output for each: `artifacts/reasoned_trajectory_poc/<name>/videos/side_by_side_<name>.mp4`. The debug/reasoning text overlay and the STOCK/VLM corner tag scale with `--board-width`/`--board-height` -- bump those (default 640x400 in the wrapper script) for a bigger, more legible video.
 
 ## Current control path
 
