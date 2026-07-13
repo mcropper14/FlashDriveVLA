@@ -1,10 +1,8 @@
-
-
-## Modifed from: 
-Modified from: ```https://github.com/jagoff2/OPAMAYO/tree/alpamayo-speedfirst-metadrive-20260601-openpilot-controller ``` and Claude Code
-
 Working on Ubuntu with a NVIDIA L40 (44GBVRAM)
 Alpamayo / FlashDriveVLA runtime, the local PC endpoint, and the MetaDrive side-by-side controller proof path.
+
+Modified from: ```https://github.com/jagoff2/OPAMAYO/tree/alpamayo-speedfirst-metadrive-20260601-openpilot-controller ``` and Claude Code and my previous alpamayo work from hackathon
+
 
 ## Ubuntu / Linux Native Runbook
 
