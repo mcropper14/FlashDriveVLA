@@ -1,7 +1,7 @@
 # DRAFT: speed-first Alpamayo warm-frame runtime
 
 ## Modifed from: 
-Modified from: ```https://github.com/jagoff2/OPAMAYO/tree/alpamayo-speedfirst-metadrive-20260601-openpilot-controller ```
+Modified from: ```https://github.com/jagoff2/OPAMAYO/tree/alpamayo-speedfirst-metadrive-20260601-openpilot-controller ``` and Claude Code
 
 Working on Ubuntu with a NVIDIA L40 (44GBVRAM)
 
