@@ -1,0 +1,154 @@
+{
+  "batch_tokens": 1,
+  "compatibility": {
+    "checked_layout": "awq_triton_plain",
+    "issues": [],
+    "status": "unknown"
+  },
+  "created_unix": 1779843193.9343479,
+  "device": "cuda:0",
+  "dtype_summary": {
+    "channel_scales": {
+      "device": "cpu",
+      "dtype": "torch.float16",
+      "shape": [
+        1,
+        4096
+      ]
+    },
+    "pairs": {
+      "device": "cpu",
+      "dtype": "torch.int16",
+      "shape": [
+        8,
+        4096
+      ]
+    },
+    "qweight": {
+      "device": "cpu",
+      "dtype": "torch.int32",
+      "shape": [
+        256,
+        8192
+      ]
+    },
+    "qzeros": {
+      "device": "cpu",
+      "dtype": "torch.int32",
+      "shape": [
+        32,
+        512
+      ]
+    },
+    "scales": {
+      "device": "cpu",
+      "dtype": "torch.float16",
+      "shape": [
+        32,
+        4096
+      ]
+    },
+    "theta": {
+      "device": "cpu",
+      "dtype": "torch.float16",
+      "shape": [
+        8,
+        2048
+      ]
+    }
+  },
+  "errors": [
+    "paroquant_import_error::ModuleNotFoundError::No module named 'paroquant'"
+  ],
+  "iters": 1,
+  "model_path": "J:\\temp_alpamayo\\Alpamayo-1.5-10B-finetuned-PARO",
+  "module_prefix": "vlm.model.language_model.layers.0.self_attn.q_proj",
+  "notes": [
+    "loaded_selected_tensors_ok"
+  ],
+  "output_shapes": {},
+  "required_keys": {
+    "channel_scales": "vlm.model.language_model.layers.0.self_attn.q_proj.rotate_linear.rotation.channel_scales",
+    "pairs": "vlm.model.language_model.layers.0.self_attn.q_proj.rotate_linear.rotation.pairs",
+    "qweight": "vlm.model.language_model.layers.0.self_attn.q_proj.rotate_linear.qlinear.qweight",
+    "qzeros": "vlm.model.language_model.layers.0.self_attn.q_proj.rotate_linear.qlinear.qzeros",
+    "scales": "vlm.model.language_model.layers.0.self_attn.q_proj.rotate_linear.qlinear.scales",
+    "theta": "vlm.model.language_model.layers.0.self_attn.q_proj.rotate_linear.rotation.theta"
+  },
+  "status": "error",
+  "status_reason": "rotation_import_error",
+  "tensors": {
+    "channel_scales": {
+      "device": "cpu",
+      "dtype": "torch.float16",
+      "key": "vlm.model.language_model.layers.0.self_attn.q_proj.rotate_linear.rotation.channel_scales",
+      "loaded": true,
+      "path": "J:\\temp_alpamayo\\Alpamayo-1.5-10B-finetuned-PARO\\model-00001-of-00003.safetensors",
+      "shape": [
+        1,
+        4096
+      ]
+    },
+    "pairs": {
+      "device": "cpu",
+      "dtype": "torch.int16",
+      "key": "vlm.model.language_model.layers.0.self_attn.q_proj.rotate_linear.rotation.pairs",
+      "loaded": true,
+      "path": "J:\\temp_alpamayo\\Alpamayo-1.5-10B-finetuned-PARO\\model-00001-of-00003.safetensors",
+      "shape": [
+        8,
+        4096
+      ]
+    },
+    "qweight": {
+      "device": "cpu",
+      "dtype": "torch.int32",
+      "key": "vlm.model.language_model.layers.0.self_attn.q_proj.rotate_linear.qlinear.qweight",
+      "loaded": true,
+      "path": "J:\\temp_alpamayo\\Alpamayo-1.5-10B-finetuned-PARO\\model-00001-of-00003.safetensors",
+      "shape": [
+        256,
+        8192
+      ]
+    },
+    "qzeros": {
+      "device": "cpu",
+      "dtype": "torch.int32",
+      "key": "vlm.model.language_model.layers.0.self_attn.q_proj.rotate_linear.qlinear.qzeros",
+      "loaded": true,
+      "path": "J:\\temp_alpamayo\\Alpamayo-1.5-10B-finetuned-PARO\\model-00001-of-00003.safetensors",
+      "shape": [
+        32,
+        512
+      ]
+    },
+    "scales": {
+      "device": "cpu",
+      "dtype": "torch.float16",
+      "key": "vlm.model.language_model.layers.0.self_attn.q_proj.rotate_linear.qlinear.scales",
+      "loaded": true,
+      "path": "J:\\temp_alpamayo\\Alpamayo-1.5-10B-finetuned-PARO\\model-00001-of-00003.safetensors",
+      "shape": [
+        32,
+        4096
+      ]
+    },
+    "theta": {
+      "device": "cpu",
+      "dtype": "torch.float16",
+      "key": "vlm.model.language_model.layers.0.self_attn.q_proj.rotate_linear.rotation.theta",
+      "loaded": true,
+      "path": "J:\\temp_alpamayo\\Alpamayo-1.5-10B-finetuned-PARO\\model-00001-of-00003.safetensors",
+      "shape": [
+        8,
+        2048
+      ]
+    }
+  },
+  "timing": {
+    "iter_ms": [],
+    "mean_ms": null,
+    "warmup_ms": []
+  },
+  "warmup": 1
+}

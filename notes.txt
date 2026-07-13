@@ -1,0 +1,6 @@
+# Path 1: Alpamayo speed-first + MetaDrive (base model, single GPU)
+tools/reasoned_trajectory_poc/run_ubuntu_alpamayo_endpoint.sh   # terminal 1
+tools/reasoned_trajectory_poc/run_ubuntu_metadrive_demo.sh <name>  # terminal 2
+
+# Path 2: Qwen/TensorRT engine build + latency validation
+tools/reasoned_trajectory_poc/build_ubuntu_qwen_trt_engines.sh

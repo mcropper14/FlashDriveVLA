@@ -1,0 +1,19 @@
+* text=auto
+
+# No git-lfs in this fork: upstream's .lfsconfig points at comma.ai's own
+# LFS store, which returns 404 for these objects even on read (they were
+# never resolvable in this fork to begin with -- these are openpilot's
+# own Qt-UI assets, unrelated to the Alpamayo/MetaDrive/TensorRT work
+# here). Left as the same unresolved LFS-pointer text stubs, just as
+# plain files instead of a git-lfs dependency that can't fetch them anyway.
+*.onnx -text
+*.svg -text
+*.png -text
+*.gif -text
+*.ttf -text
+*.otf -text
+*.wav -text
+
+selfdrive/car/tests/test_models_segs.txt -text
+system/hardware/tici/updater_weston -text
+system/hardware/tici/updater_magic -text

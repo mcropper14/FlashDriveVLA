@@ -1,0 +1,8 @@
+snapshot=E:\ture_opamayo\opamayo_push_snapshot_20260603\alpamayo_fast_effort_snapshot_20260603_105324
+filesRoot=E:\ture_opamayo\opamayo_push_snapshot_20260603\alpamayo_fast_effort_snapshot_20260603_105324\files
+sourceCount=5
+fileCount=172
+bytes=5607167
+megabytes=5.35
+updated=2026-06-03T13:05:00-04:00
+criteria=Alpamayo-fast edited source/docs/tooling snapshot. Artifact directories omitted for GitHub push per user instruction. Unrelated dirty openpilot/openpilot_alpamayo files excluded.

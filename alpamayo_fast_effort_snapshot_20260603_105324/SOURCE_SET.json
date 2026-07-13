@@ -1,0 +1,27 @@
+[
+    {
+        "Source":  "GOAL.md",
+        "Files":  1,
+        "Bytes":  802971
+    },
+    {
+        "Source":  "openpilot\\selfdrive\\alpamayo",
+        "Files":  18,
+        "Bytes":  1033173
+    },
+    {
+        "Source":  "openpilot\\tools\\reasoned_trajectory_poc\\run_metadrive_overlay_demo.py",
+        "Files":  1,
+        "Bytes":  208381
+    },
+    {
+        "Source":  "openpilot_alpamayo\\openpilot\\selfdrive\\alpamayo",
+        "Files":  42,
+        "Bytes":  1906874
+    },
+    {
+        "Source":  "openpilot_alpamayo\\openpilot\\tools\\alpamayo_speed",
+        "Files":  110,
+        "Bytes":  1655768
+    }
+]
