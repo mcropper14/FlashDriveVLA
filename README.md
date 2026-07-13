@@ -3,6 +3,8 @@
 ## Modifed from: 
 Modified from: ```https://github.com/jagoff2/OPAMAYO/tree/alpamayo-speedfirst-metadrive-20260601-openpilot-controller ```
 
+Working on Ubuntu with a NVIDIA L40 (44GBVRAM)
+
 This is a draft operator note for the speed-first Alpamayo / FlashDriveVLA runtime, the local PC endpoint, and the MetaDrive side-by-side controller proof path. It records the current runnable path, the launch commands used for the current proof artifact, measured warm-frame timing, and which older artifacts are superseded.
 
 Status: draft, speed-first, sim-only. The relevant metric for this effort is steady-state warm shifted rows after the cache path is resident. Cold first-frame latency is intentionally ignored.
